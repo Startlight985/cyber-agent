@@ -1,0 +1,16 @@
+# AgentBeats Scenario Configuration
+# Fill in agent IDs after registration on agentbeats.dev
+
+[green]
+# Green agent (benchmark evaluator) — fill with actual agentbeats_id
+agentbeats_id = ""  # e.g., "agentbeater/ethernaut-arena"
+
+[purple]
+agentbeats_id = ""  # e.g., "Startlight985/cyber-agent"
+image = "ghcr.io/startlight985/cyber-agent:latest"
+
+[purple.env]
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY}"
+
+[assessment]
+timeout = 600
