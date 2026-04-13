@@ -48,7 +48,9 @@ class CyberExecutor(AgentExecutor):
         updater = TaskUpdater(event_queue, task_id, ctx_id)
 
         try:
-            await updater.start_work()
+            # Only start_work on first call; follow-ups already have a working task
+            if agent.state.value == "init":
+                await updater.start_work()
             await agent.step(msg, updater)
 
             if agent.done:
