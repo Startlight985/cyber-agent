@@ -54,7 +54,11 @@ class CyberExecutor(AgentExecutor):
             await agent.step(msg, updater)
 
             if agent.done:
-                await updater.complete()
+                # Don't complete if already terminal (e.g. rejected)
+                try:
+                    await updater.complete()
+                except RuntimeError:
+                    pass
                 _agents.pop(ctx_id, None)
         except Exception as e:
             log.error("[%s] Agent failed: %s", ctx_id, e, exc_info=True)
