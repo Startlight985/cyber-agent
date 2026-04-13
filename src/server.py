@@ -30,9 +30,9 @@ VERSION = "0.8.0"
 class NoHistoryTaskStore(InMemoryTaskStore):
     """Task store that clears history to reduce memory for large challenge files."""
 
-    async def save(self, task):
+    async def save(self, task, context=None):
         task.history = []
-        return await super().save(task)
+        return await super().save(task, context)
 
 
 def build_agent_card(base_url: str = "http://localhost:9020") -> AgentCard:
