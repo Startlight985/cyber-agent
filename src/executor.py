@@ -47,15 +47,12 @@ class CyberExecutor(AgentExecutor):
             await agent.run(msg, None)
             return
 
-        # First call: create agent, task, and run full flow
+        # First call: create agent and run full flow
         agent = CyberAgent()
         _agents[ctx_id] = agent
 
-        updater = TaskUpdater(event_queue, task.id if task else ctx_id, ctx_id)
-
-        if not task:
-            await updater.new_task(msg)
-
+        task_id = task.id if task else ctx_id
+        updater = TaskUpdater(event_queue, task_id, ctx_id)
         await updater.start_work()
 
         try:
