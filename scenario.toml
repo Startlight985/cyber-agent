@@ -2,12 +2,12 @@
 # Fill in agent IDs after registration on agentbeats.dev
 
 [green]
-# Green agent (benchmark evaluator) — fill with actual agentbeats_id
-agentbeats_id = ""  # e.g., "agentbeater/ethernaut-arena"
+# Green agent (benchmark evaluator) — fill per benchmark
+agentbeats_id = ""  # varies: e.g., "kmadorin/ethernaut-arena"
 
 [purple]
-agentbeats_id = ""  # e.g., "Startlight985/cyber-agent"
-image = "ghcr.io/startlight985/cyber-agent:latest"
+agentbeats_id = "Startlight985/startlight-cyber"
+image = "ghcr.io/startlight985/cyber-agent:main"
 
 [purple.env]
 ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY}"
