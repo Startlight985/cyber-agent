@@ -115,8 +115,8 @@ class CyberAgent:
         self.challenge_prompt = _build_challenge_prompt(input_text, challenge_files)
 
         log.info("[%s] Generating initial PoC...", ctx)
-        poc_code = call_llm(self.challenge_prompt, system=POC_SYSTEM,
-                            model=MODEL_SONNET, max_tokens=4096, temperature=0)
+        poc_code = await call_llm(self.challenge_prompt, system=POC_SYSTEM,
+                                  model=MODEL_SONNET, max_tokens=4096, temperature=0)
         self.poc_code = _strip_code_fences(poc_code) if poc_code else ""
 
         if not self.poc_code:
@@ -155,8 +155,8 @@ class CyberAgent:
 
         log.info("[%s] Refining PoC (iteration %d/%d)...", ctx, self.iteration, MAX_TEST_ITERATIONS)
         refine_prompt = _build_refine_prompt(self.challenge_prompt, self.poc_code, exit_code, output)
-        refined = call_llm(refine_prompt, system=POC_REFINE_SYSTEM,
-                           model=MODEL_SONNET, max_tokens=4096, temperature=0.2)
+        refined = await call_llm(refine_prompt, system=POC_REFINE_SYSTEM,
+                                model=MODEL_SONNET, max_tokens=4096, temperature=0.2)
         refined = _strip_code_fences(refined) if refined else ""
         if refined:
             self.poc_code = refined
